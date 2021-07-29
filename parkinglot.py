@@ -1,4 +1,6 @@
+import sys
 from file_car import Car 
+
 
 class Parking:
     
@@ -7,15 +9,14 @@ class Parking:
         self.slots = float('inf')
         self.slotNo = 0
         self.used_slots = 0
+        self.n = 0
         
     
     def create_parking(self,n):
         
+        self.n = n
         self.slots = [0] * n
-        print(f"\n {n} Parking slots Created \n")
-        
         self.total_slots = n
-        
         return  self.total_slots
     
     
@@ -24,8 +25,8 @@ class Parking:
         for idx in range(len(self.slots)):
             
             if self.slots[idx] == 0:
-                
                 return idx
+        
         return -1
     
     
@@ -37,42 +38,43 @@ class Parking:
             self.slots[self.slotno]=Car(rgno,color)
             self.used_slots+=1
             self.slotno+=1
+            print(f"Slot Number {self.slotno} Alloted")
             return self.slotno
+
         else:
             
             print("ParkingSlot Not Available")
-            return -1
+            return 
     
     
     def free_slot(self,slotno):
-
+        
         if self.used_slots > 0 and self.slots[slotno-1] != 0 :
 
             self.slots[slotno-1] = 0
             self.used_slots -= 1
-
-            return True
-
+            print(f"Slot Number {slotno} is Free")
+            return 
+        
         else:
-             return False
+             print("Enter wrong slot number")
+             return 
 
+    
     def display(self):
 
-        print("SlotNo.\tRgNo.\tColour")
+        print("SlotNo.\t\tRgNo.\t\t\tColour")
 
         for i in range(len(self.slots)):
 
             if self.slots[i] != 0 :
 
-                print(f"{i+1} \t\t {self.slots[i].RgNo} \t\t {self.slots[i].Color}")
+                print(f"{i+1} \t\t{self.slots[i].RgNo} \t\t {self.slots[i].Color}")
             
             else:
                 
                 continue 
         
-
-    
-    
 
     def display_slotno_by_color(self,color):
 
@@ -80,16 +82,17 @@ class Parking:
 
         for i in range(len(self.slots)):
 
-            if i == 0:
+            if self.slots[i] == 0:
 
                 continue
             
             if self.slots[i].Color == color :
 
+
                 slotno.append(i+1)
         
+        
         return slotno
-
 
 
     def display_rgno_by_color(self,color):
@@ -99,62 +102,135 @@ class Parking:
         for i in self.slots:
 
             if i == 0:
-
-                continue
+                continue    
             
             if i.Color == color :
                 regs.append(i.RgNo)
         
+        if len(regs) != 0:
 
-        return regs
+            print(regs)
+        
+        else:
+            print("Not Found")
+        
+        return
+
 
     def display_slotno_by_regno(self,rgno):
 
 
         for i in range(len(self.slots)):
-            if i == 0:
-
+            if self.slots[i] == 0:
                 continue
-            
-            if self.slots[i].RgNo == rgno:
 
-                return i+1
+            elif self.slots[i].RgNo == rgno:
+                
+                
+                return (i+1)
+        
         
         return -1
+         
     
+
 
 
 if __name__ == "__main__":
-
-    p=Parking()
-    p.create_parking(6)
     
-    print(p.empty_slots())
-    p.park_car("HR-07Y-1234","Black")
-    print(p.empty_slots())
-    p.park_car("DL-08T-0010","White")
-    print(p.empty_slots())
-    p.park_car("KA-9OP-8503","White")
-    print(p.empty_slots())
-    p.park_car("DL-05A-8456","Blue")
-    print(p.empty_slots())
-    p.park_car("HP-0RF-8966","Red")
-    print(p.empty_slots())
-    p.park_car("PB-09U-4444","Green")
-    
-    print(p.empty_slots())
-    p.park_car("UP-05A-0001","Yellow")
-    
-    p.display()
-    p.free_slot(3)
-    p.display()
-    p.park_car("Jk-09I-8900","Red")
-    p.display()
-
-    print(p.display_rgno_by_color("Red"))
-
-    print(p.display_slotno_by_color("Red"))
-
-    print(p.display_slotno_by_regno("DL-05A-8456"))
+    p = Parking()
 
     
+    while True:
+
+        input_str=input("\n$ ").split(" ") #Taking Input from User
+
+        
+        try:
+
+            if input_str[0] == "create_parking_lot" and input_str[1].isnumeric():
+                
+                n=p.create_parking(int(input_str[1]))
+                print(f"\n {n} Parking slots Created \n")
+            
+        
+            elif input_str[0] == "park" and len(input_str) == 3:
+
+                p.park_car(input_str[1],input_str[2])
+        
+            
+            elif input_str[0] == "Exit":
+            
+                raise Exception
+            
+        
+            elif input_str[0] == "status":
+
+                p.display()
+
+        
+            elif input_str[0] == "leave" and input_str[1].isnumeric():
+
+                p.free_slot(int(input_str[1]))
+            
+        
+            elif input_str[0] == "registration_numbers_for_cars_with_colour" :
+                
+                p.display_rgno_by_color(input_str[1])
+            
+        
+            
+            elif input_str[0] == "slot_numbers_for_cars_with_colour":
+                
+                var=p.display_slotno_by_color(input_str[1])
+
+                if len(var) == 0:
+
+                    print("Not Found")
+
+                else:
+
+                    for i in range(len(var)):
+
+                        print(var[i],end=",")
+                    
+            
+        
+            elif input_str[0] == "slot_number_for_registration_number":
+
+                var=p.display_slotno_by_regno(input_str[1])
+
+                if var == -1 :
+                    
+                    print("Not Found")
+                
+                else:
+
+                    print(var)
+
+
+
+            else:
+                print("Enter correct Command")
+            
+   
+        except:
+              
+            if input_str[0]=="Exit":    #If user press Exit command to terminate
+            
+                 sys.exit() 
+            
+            if p.n == 0:           #If user try to park car before creating Slots
+
+                print("First You Need To Create Parking Slots")
+                
+            
+            print("Exception ariesd")
+            
+            sys.exit()
+    
+    
+    
+
+
+   
