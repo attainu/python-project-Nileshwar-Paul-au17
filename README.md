@@ -1,5 +1,5 @@
 # ParkingLot
-Design a parking lot using Python with Test driven approach approach.
+Design a parking lot using Python with Test driven approach.
 
 ## Dependencies
 
