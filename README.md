@@ -39,7 +39,7 @@ https://github.com/attainu/python-project-Nileshwar-Paul-au17/blob/dev/Pic/slot%
 8. `Exit` - To close the programe you can type "Exit". 
 https://github.com/attainu/python-project-Nileshwar-Paul-au17/blob/dev/Pic/exit.png
 
-## Setup
+
 
 
 ## Python Library we are using in this :-
@@ -49,8 +49,8 @@ https://github.com/attainu/python-project-Nileshwar-Paul-au17/blob/dev/Pic/exit.
 2. argparse :-Discription inside the Doc folder of the repository
 
 
+## SET UP
 
-To create your own ParkingLot - 
 
 1. Clone the repository
 
@@ -62,7 +62,7 @@ To create your own ParkingLot -
 
         `create_parking_lot n `
 
-n is the number of vehicals can be parked in your parking
+n is the number of vehicles can be parked in your parking
 
 5. To run with a Input file execute `python main.py -f Input_file_name.txt. 
 
