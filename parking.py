@@ -51,7 +51,7 @@ class Parking:
             self.slots[slotno-1] = 0
             self.used_slots -= 1
             print(f"Slot Number {slotno} is Free")
-            return 
+            return
         else:
             print("Enter wrong slot number")
             return
@@ -91,7 +91,7 @@ class Parking:
                 return (i+1)
         return -1
 
-    def show(self, line):
+    def file_input(self, line):
         if line.startswith('create_parking_lot'):
             n = int(line.split(' ')[1])
             res = self.create_parking(n)
@@ -125,3 +125,5 @@ class Parking:
                 print(slotno)
         elif line.startswith('exit'):
             exit(0)
+        else:
+            print("wrong command entered")
