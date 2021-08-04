@@ -17,17 +17,13 @@ if __name__ == '__main__':
         while True:
             inp = input("\n$ ").split(" ")
             try:
-                if(inp[0] == 'create_parking_lot' and len(inp)==1):
+                if(inp[0] == 'create_parking_lot' and len(inp) == 1):
                     n = p.create_parking(100)
                     print(f"\n {n} Parking slots Created \n")
                 elif(inp[0] == 'create_parking_lot' and inp[1].isdigit()):
                     n = p.create_parking(int(inp[1]))
                     print(f"\n {n} Parking slots Created \n")
-                elif(inp[0] == 'create_parking_lot'):
-                    print("hi")
-                    n = p.create_parking(100)
-                    print(f"\n {n} Parking slots Created \n")
-                elif inp[0] == "park":
+                elif inp[0] == "park" and len(inp) == 3:
                     p.park_car(inp[1], inp[2])
                 elif inp[0] == "Exit":
                     raise Exception
